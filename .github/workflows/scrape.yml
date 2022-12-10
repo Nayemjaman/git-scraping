@@ -15,7 +15,7 @@ jobs:
     - name: Fetch latest data
       run: |-
         curl https://www.fire.ca.gov/umbraco/Api/IncidentApi/GetIncidents | jq . > incidents.json
-    - name: Commit and push if it changed
+    - name: Commit and push
       run: |-
         git config user.name "Automated"
         git config user.email "actions@users.noreply.github.com"
