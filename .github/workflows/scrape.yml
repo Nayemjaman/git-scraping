@@ -25,7 +25,7 @@ jobs:
     - name: Fetch latest data
       run: python script.py
     - name: Commit and push if it changed
-      run: |-
+      run: |
         git config user.name ${{ secrets.GIT_NAME }}
         git config user.email ${{ secrets.GIT_EMAIL }}
         git add -A
