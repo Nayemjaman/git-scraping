@@ -29,9 +29,5 @@ jobs:
         git config user.email ${{ secrets.GIT_EMAIL }}
         git add -A
         timestamp=$(date -u)
-        git commit -m "Latest data: ${timestamp}" || exit 0
-    - name: Push changes # push the output folder to your repo, turn on workflow read and write permission
-      uses: ad-m/github-push-action@master
-      with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
-        force: true
+        git commit -m 'latest data ${timestamp}' || exit 0
+        git push
