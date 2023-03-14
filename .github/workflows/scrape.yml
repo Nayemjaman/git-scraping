@@ -1,10 +1,21 @@
-name: Scrape latest data
+name: Scrape burnout tweets
+
+# FYI cron
+# ┌────────── minute (0 - 59)
+# │ ┌────────── hour (0 - 23)
+# │ │ ┌────────── day of the month (1 - 31)
+# │ │ │ ┌────────── month (1 - 12)
+# │ │ │ │ ┌────────── day of the week (0 - 6)
+# │ │ │ │ │                                  
+# │ │ │ │ │
+# │ │ │ │ │
+# * * * * *
 
 on:
   push:
   workflow_dispatch:
   schedule:
-    - cron:  '10,50 * * * *'
+  - cron: '0 0 * * *' # @daily
 
 jobs:
   scheduled:
@@ -29,5 +40,9 @@ jobs:
         git config user.email ${{ secrets.GIT_EMAIL }}
         git add -A
         timestamp=$(date -u)
-        git commit -m 'latest data ${timestamp}' || exit 0
-        git push
+        git commit -m "Latest data: ${timestamp}" || exit 0
+    - name: Push changes # push the output folder to your repo, turn on workflow read and write permission
+      uses: ad-m/github-push-action@master
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        force: true
